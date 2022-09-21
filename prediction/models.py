@@ -9,6 +9,14 @@ class RawImage(models.Model):
 
     def __str__(self) -> str:
         return f'{self.id} - {self.user}'
+
+
+class RawImageMobile(models.Model):
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='prediction_images')
+
+    def __str__(self) -> str:
+        return f'{self.id} - {self.user}'
     
 
 
@@ -63,6 +71,14 @@ class Disease(models.Model):
 
 class Report(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    raw_image = models.ForeignKey(RawImage, on_delete=models.CASCADE)
+    disease = models.ForeignKey(Disease, on_delete=models.CASCADE)
+    datetime = models.DateTimeField (auto_now_add=True, blank = True)
+
+    def __str__(self) -> str:
+        return f'{self.user} - {self.disease}'
+
+class ReportMobile(models.Model):
     raw_image = models.ForeignKey(RawImage, on_delete=models.CASCADE)
     disease = models.ForeignKey(Disease, on_delete=models.CASCADE)
     datetime = models.DateTimeField (auto_now_add=True, blank = True)
