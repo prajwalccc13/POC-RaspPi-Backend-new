@@ -22,7 +22,7 @@ class HardwareSession(models.Model):
     is_completed = models.BooleanField(default=False)
     is_image_capture = models.BooleanField(default=False) 
     is_session_cancelled = models.BooleanField(default=False)
-    datetime = models.DateTimeField (auto_now_add=True, blank = True, null=True)
+    datetime = models.DateTimeField (auto_now= True, blank = True, null=True)
 
     def __str__(self) -> str:
         return f'{self.id} - current session: {self.is_current_session} - completion : {self.is_completed}'

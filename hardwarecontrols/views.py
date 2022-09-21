@@ -135,13 +135,15 @@ class SessionImageListCreateView(APIView):
             serializer.save()
             hardware_session_object = HardwareSession.objects.get(id=request.data['hardware_session'])
             total_images_captured = hardware_session_object.total_images_captured + 1
-            print(total_images_captured)
-            print('-----------------')
+            total_diseased_images = hardware_session_object.total_diseased_images + 1
+            # print(total_images_captured)
+            # print('-----------------')
             hardware_session = HardwareSession(
                 id=request.data['hardware_session'], 
                 is_image_capture=False, 
                 is_current_session=True,
-                total_images_captured=total_images_captured
+                total_images_captured=total_images_captured,
+                total_diseased_images=total_diseased_images
             )  
             hardware_session.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
