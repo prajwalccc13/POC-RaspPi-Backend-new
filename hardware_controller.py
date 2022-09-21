@@ -1,7 +1,7 @@
 import json
 import time
 import requests
-from run_motor import RunMotor, RunWaterPump
+from run_motor import RunMotor, RunWaterPump, RunMotorReverse
 
 
 base_url = "http://192.168.1.73:8000/api/v1/hardware/"
@@ -55,7 +55,11 @@ for i in range(5):
             if classified_result != "Healthy":
                 RunWaterPump(water_motor_running_time)
 
+            print('----------------- apple')
+
         # set automatic process = False
+        print('-----------------')
+        RunMotorReverse(motor_running_time * total_cycles)
         context = {
             'is_process_started': False
         }
@@ -66,9 +70,9 @@ for i in range(5):
             'is_completed': True
         }
         hardware_session_response = requests.patch(f'{session_detail_url}{current_session_id}/', json=context_hardware_session)
-        response_dict = json.loads(response.text)
+        # response_dict = json.loads(response.text)
         # print(response_dict['is_image_capture'])
-        print(f'at last automatic {response_dict} 0000000000')
+        # print(f'at last automatic {response_dict} 0000000000')
 
     time.sleep(1)
 

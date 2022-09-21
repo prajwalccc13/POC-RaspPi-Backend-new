@@ -66,7 +66,7 @@ class HardwareInfoDetailView(APIView):
 # HardwareSession Views
 
 class HardwareSessionListCreateView(generics.ListCreateAPIView):
-    queryset = HardwareSession.objects.all()
+    queryset = HardwareSession.objects.all().order_by('-datetime').values()
     serializer_class = HardwareSessionSerializer
 
 class HardwareSessionDetailView(generics.RetrieveUpdateDestroyAPIView):
@@ -133,7 +133,16 @@ class SessionImageListCreateView(APIView):
         serializer = SessionImageSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            hardware_session = HardwareSession(id=request.data['hardware_session'], is_image_capture=False, is_current_session=True)  
+            hardware_session_object = HardwareSession.objects.get(id=request.data['hardware_session'])
+            total_images_captured = hardware_session_object.total_images_captured + 1
+            print(total_images_captured)
+            print('-----------------')
+            hardware_session = HardwareSession(
+                id=request.data['hardware_session'], 
+                is_image_capture=False, 
+                is_current_session=True,
+                total_images_captured=total_images_captured
+            )  
             hardware_session.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

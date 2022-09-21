@@ -1,3 +1,4 @@
+from datetime import datetime
 from secrets import choice
 from django.db import models
 from django.contrib.auth.models import User
@@ -64,6 +65,7 @@ class Report(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     raw_image = models.ForeignKey(RawImage, on_delete=models.CASCADE)
     disease = models.ForeignKey(Disease, on_delete=models.CASCADE)
+    datetime = models.DateTimeField (auto_now_add=True, blank = True)
 
     def __str__(self) -> str:
         return f'{self.user} - {self.disease}'

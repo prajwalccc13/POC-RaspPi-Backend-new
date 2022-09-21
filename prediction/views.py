@@ -79,7 +79,7 @@ class RawImageList(APIView):
 
 
 class ReportList(generics.ListAPIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
 
