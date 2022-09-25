@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Disease, RawImage, Report
+from .models import Disease, RawImage, Report, RawImageMobile, ReportMobile
 from django.contrib.auth.models import User
 
 
@@ -64,4 +64,18 @@ class ReportSerializer(serializers.ModelSerializer):
     
 
 
+class RawImageMobileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RawImageMobile
+        fields = '__all__'
+        lookup_field = 'id'
 
+class ReportMobileSerializer(serializers.ModelSerializer):
+    raw_image = RawImageMobileSerializer(many=False, read_only=True, source='*')
+    disease = DiseaseSerializer(many=False, read_only=True, source='*')
+
+    class Meta:
+        model = ReportMobile
+        fields = '__all__'
+        depth = 2
+        lookup_field = 'id'

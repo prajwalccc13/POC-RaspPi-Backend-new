@@ -23,7 +23,7 @@ for i in range(5):
         total_time_required = hardware_info_response['total_time']
         motor_running_time = hardware_info_response['motor_run_time']
         water_motor_running_time = hardware_info_response['water_motor_run_time']
-        capture_image_delay_time = 1
+        capture_image_delay_time = 3
 
         total_cycles = int(total_time_required / motor_running_time)
         print(f'total cycles - {total_cycles} +++++++++')
