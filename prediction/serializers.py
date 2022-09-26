@@ -71,8 +71,8 @@ class RawImageMobileSerializer(serializers.ModelSerializer):
         lookup_field = 'id'
 
 class ReportMobileSerializer(serializers.ModelSerializer):
-    raw_image = RawImageMobileSerializer(many=False, read_only=True, source='*')
-    disease = DiseaseSerializer(many=False, read_only=True, source='*')
+    raw_image = RawImageMobileSerializer(many=False)
+    disease = DiseaseSerializer(many=False)
 
     class Meta:
         model = ReportMobile
